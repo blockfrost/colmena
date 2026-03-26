@@ -86,7 +86,7 @@ with builtins; {
           };
           path = [ pkgs.inotify-tools ];
           preStart = ''
-            (while read f; do if [ "$f" = "${val.name}" ]; then break; fi; done \
+            (while read -r f; do if [ "$f" = "${val.name}" ]; then break; fi; done \
               < <(inotifywait -qm --format '%f' -e create,move ${val.destDir}) ) &
             if [[ -e "${val.path}" ]]; then
               echo 'flapped down'
